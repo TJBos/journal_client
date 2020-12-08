@@ -10,6 +10,14 @@ const Display = (props) => {
           <article>
             <h1>{item.date}</h1>
             <h3>{item.main}</h3>
+            <button
+              onClick={() => {
+                props.selectEntry(item);
+                props.history.push("/show");
+              }}
+            >
+              View Entry
+            </button>
           </article>
         ))}
       </div>

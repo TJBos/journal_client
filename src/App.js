@@ -2,6 +2,8 @@ import "./App.css";
 import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import Display from "./components/Display";
+import Form from "./components/Form";
+import Show from "./components/Show";
 
 function App() {
   //variable for url
@@ -9,10 +11,10 @@ function App() {
   //create the state to hold the entries
   const [entries, setEntries] = React.useState([]);
   //empty
-  //const emptyDog = {
-  //name: "",
-  //age: 0,
-  //};
+  const emptyEntry = {
+    main: "",
+    date: new Date(),
+  };
   //select an entry
   const [selectedEntry, setSelectedEntry] = React.useState({});
 
@@ -25,53 +27,107 @@ function App() {
 
   //useEffect to do initial fetch of entries
   React.useEffect(() => getEntries(), []);
-  /*
-  //handleCreate function for creating new dogs
-  const handleCreate = (newDog) => {
-    fetch(url + "/dog/", {
+
+  //handleCreate function for creating new entries
+  const handleCreate = (newEntry) => {
+    fetch(url + "/entries/", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newDog),
+      body: JSON.stringify(newEntry),
     }).then(() => {
-      getDogs();
+      getEntries();
     });
   };
 
-  const handleUpdate = (dog) => {
-    fetch(url + "/dog/" + dog._id, {
+  const handleUpdate = (entry) => {
+    fetch(url + "/entries/" + entry.id, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dog),
+      body: JSON.stringify(entry),
     }).then(() => {
-      // don't need the response from the post but will be using the .then to update the list of dogs
-      getDogs();
+      // don't need the response from the post but will be using the .then to update the list of entries
+      getEntries();
     });
   };
 
-  const selectDog = (dog) => {
-    setSelectedDog(dog);
+  const selectEntry = (entry) => {
+    setSelectedEntry(entry);
   };
 
-  const deleteDog = (dog) => {
-    fetch(url + "/dog/" + dog._id, {
+  const deleteEntry = (entry) => {
+    fetch(url + "/entries/" + entry.id, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
       },
     }).then(() => {
-      // don't need the response from the post but will be using the .then to update the list of dogs
-      getDogs();
+      // don't need the response from the post but will be using the .then to update the list
+      getEntries();
     });
   };
-*/
+
   return (
     <div className="App">
       <h1>Journal</h1>
-      <Display entries={entries} />
+      <main>
+        <Link to="/create">
+          <button>Add Entry</button>
+        </Link>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={(rp) => (
+              <Display
+                {...rp}
+                entries={entries}
+                selectEntry={selectEntry}
+                deleteEntry={deleteEntry}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/show"
+            render={(rp) => (
+              <Show
+                {...rp}
+                entry={selectedEntry}
+                selectEntry={selectEntry}
+                deleteEntry={deleteEntry}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/create"
+            render={(rp) => (
+              <Form
+                {...rp}
+                label="create"
+                entry={emptyEntry}
+                handleSubmit={handleCreate}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/edit"
+            render={(rp) => (
+              <Form
+                {...rp}
+                label="update"
+                entry={{ selectedEntry }}
+                handleSubmit={handleUpdate}
+              />
+            )}
+          />
+        </Switch>
+      </main>
     </div>
   );
 }
