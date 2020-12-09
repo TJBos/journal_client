@@ -13,7 +13,7 @@ function App() {
   //empty
   const emptyEntry = {
     main: "",
-    date: new Date(),
+    date: null,
   };
   //select an entry
   const [selectedEntry, setSelectedEntry] = React.useState({});
@@ -42,7 +42,7 @@ function App() {
   };
 
   const handleUpdate = (entry) => {
-    fetch(url + "/entries/" + entry.id, {
+    fetch(url + `/entries/${entry.id}`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ function App() {
   };
 
   const deleteEntry = (entry) => {
-    fetch(url + "/entries/" + entry.id, {
+    fetch(url + `/entries/${entry.id}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -74,20 +74,22 @@ function App() {
     <div className="App">
       <h1>Journal</h1>
       <main>
-        <Link to="/create">
-          <button>Add Entry</button>
-        </Link>
         <Switch>
           <Route
             exact
             path="/"
             render={(rp) => (
-              <Display
-                {...rp}
-                entries={entries}
-                selectEntry={selectEntry}
-                deleteEntry={deleteEntry}
-              />
+              <>
+                <Link to="/create">
+                  <button>Add Entry</button>
+                </Link>
+                <Display
+                  {...rp}
+                  entries={entries}
+                  selectEntry={selectEntry}
+                  deleteEntry={deleteEntry}
+                />
+              </>
             )}
           />
           <Route
@@ -121,7 +123,7 @@ function App() {
               <Form
                 {...rp}
                 label="update"
-                entry={{ selectedEntry }}
+                entry={selectedEntry}
                 handleSubmit={handleUpdate}
               />
             )}
