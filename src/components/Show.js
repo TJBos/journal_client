@@ -17,6 +17,7 @@ const Show = (props) => {
       <button
         onClick={() => {
           props.deleteEntry(entry);
+          props.history.push("/");
         }}
       >
         Delete
