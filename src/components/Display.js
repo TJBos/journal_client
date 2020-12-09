@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 const Display = (props) => {
   const { entries } = props;
@@ -10,14 +11,15 @@ const Display = (props) => {
           <article>
             <h1>{item.date}</h1>
             <h3>{item.main}</h3>
-            <button
+            <Button
+              variant="secondary"
               onClick={() => {
                 props.selectEntry(item);
                 props.history.push("/show");
               }}
             >
               View Entry
-            </button>
+            </Button>
           </article>
         ))}
       </div>

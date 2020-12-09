@@ -1,6 +1,7 @@
 import React from "react";
+import { Form, Button } from "react-bootstrap";
 
-const Form = (props) => {
+const CustomForm = (props) => {
   //STATE FOR THE FORM
   // for create this will be set to an "empty entry"
   // for update this will be set to current entry
@@ -18,27 +19,31 @@ const Form = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        {" "}
-        Thoughts
-        <textarea
-          rows="10"
+    <Form onSubmit={handleSubmit}>
+      <Form.Group>
+        <Form.Control
+          as="textarea"
+          rows={10}
+          placeholder="What's on your mind today?"
           name="main"
           value={formData.main}
           onChange={handleChange}
         />
-      </label>
-      <input
-        label="date"
-        type="date"
-        name="date"
-        value={formData.date}
-        onChange={handleChange}
-      />
-      <input type="submit" value={props.label} />
-    </form>
+      </Form.Group>
+      <Form.Group>
+        <Form.Control
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Button variant="secondary" type="submit">
+        {" "}
+        {props.label}{" "}
+      </Button>
+    </Form>
   );
 };
 
-export default Form;
+export default CustomForm;

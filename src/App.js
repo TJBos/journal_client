@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import Display from "./components/Display";
-import Form from "./components/Form";
+import CustomForm from "./components/Form";
 import Show from "./components/Show";
 
 function App() {
@@ -108,7 +108,7 @@ function App() {
             exact
             path="/create"
             render={(rp) => (
-              <Form
+              <CustomForm
                 {...rp}
                 label="create"
                 entry={emptyEntry}
