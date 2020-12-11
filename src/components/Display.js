@@ -3,12 +3,11 @@ import { Button, Card } from "react-bootstrap";
 
 const Display = (props) => {
   const { entries } = props;
-  entries.reverse();
 
   const loaded = () => {
     return (
       <div style={{ textAlign: "center" }}>
-        {entries.map((item) => (
+        {entries.reverse().map((item) => (
           <Card className="text-center">
             <Card.Header></Card.Header>
             <Card.Body>

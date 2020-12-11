@@ -8,7 +8,7 @@ import NaviLoggedIn from "./components/NaviLoggedIn";
 import Navi from "./components/Navi";
 import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 export const GlobalCtx = React.createContext(null);
 
@@ -117,7 +117,6 @@ function App() {
     <GlobalCtx.Provider value={{ gState, setgState }}>
       <div className="App">
         {loginCheck()}
-        <h1>Journal</h1>
         <main>
           <Switch>
             <Route path="/signup" exact component={Signup} />
@@ -129,7 +128,13 @@ function App() {
                 gState.token ? (
                   <>
                     <Link to="/create">
-                      <Button variant="secondary">Add Entry</Button>
+                      <Button
+                        variant="outline-secondary"
+                        size="lg"
+                        style={{ marginBottom: "25px" }}
+                      >
+                        Add Entry
+                      </Button>
                     </Link>
                     <Display
                       {...rp}
@@ -139,7 +144,26 @@ function App() {
                     />
                   </>
                 ) : (
-                  <h1>Not Logged In</h1>
+                  <Card className="text-center">
+                    <Card.Header>Keep track of your thoughts</Card.Header>
+                    <Card.Body>
+                      <Card.Title>Intrspect</Card.Title>
+                      <Card.Text>
+                        Please log in or sign up to get started
+                      </Card.Text>
+                      <Button
+                        variant="secondary"
+                        href="/login"
+                        style={{ marginRight: "25px" }}
+                      >
+                        Log in
+                      </Button>
+                      <Button variant="secondary" href="/signup">
+                        Sign up
+                      </Button>
+                    </Card.Body>
+                    <Card.Footer className="text-muted"></Card.Footer>
+                  </Card>
                 )
               }
             />

@@ -1,6 +1,7 @@
 import React from "react";
 import { GlobalCtx } from "../../App";
-//import './Login.css'
+import { Button } from "react-bootstrap";
+import "./Login.css";
 
 const Signup = ({ history }) => {
   const { gState, setgState } = React.useContext(GlobalCtx);
@@ -37,11 +38,8 @@ const Signup = ({ history }) => {
   return (
     <div className="form-container">
       <form className="form" onSubmit={handleSubmit}>
-        <h1>Signup</h1>
+        <h1>Sign up</h1>
         <div className="form-group form-inline">
-          <label>
-            <ion-icon name="person-outline"></ion-icon>
-          </label>
           <input
             id="username"
             type="text"
@@ -54,9 +52,6 @@ const Signup = ({ history }) => {
         </div>
 
         <div className="form-group form-inline">
-          <label>
-            <ion-icon name="lock-closed-outline"></ion-icon>
-          </label>
           <input
             id="password"
             type="password"
@@ -67,13 +62,7 @@ const Signup = ({ history }) => {
             onChange={handleChange}
           />
         </div>
-        <button
-          className="btn btn-primary btn-block"
-          type="submit"
-          style={{ backgroundColor: "darkslategray" }}
-        >
-          Submit
-        </button>
+        <Button variant="secondary">Submit</Button>
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { GlobalCtx } from "../../App";
 import "./Login.css";
+import { Button } from "react-bootstrap";
 
 const Login = (props) => {
   const { gState, setgState } = React.useContext(GlobalCtx);
@@ -41,9 +42,6 @@ const Login = (props) => {
       <form className="form" onSubmit={handleSubmit}>
         <h1>Welcome</h1>
         <div className="form-group form-inline">
-          <label>
-            <ion-icon name="person-outline"></ion-icon>
-          </label>
           <input
             id="username"
             type="text"
@@ -56,9 +54,6 @@ const Login = (props) => {
         </div>
 
         <div className="form-group form-inline">
-          <label>
-            <ion-icon name="lock-closed-outline"></ion-icon>
-          </label>
           <input
             id="password"
             type="password"
@@ -69,9 +64,9 @@ const Login = (props) => {
             onChange={handleChange}
           />
         </div>
-        <button className="btn btn-primary btn-block" type="submit">
+        <Button variant="secondary" type="submit">
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );
