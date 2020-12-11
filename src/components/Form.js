@@ -10,6 +10,8 @@ const CustomForm = (props) => {
   //FUNCTIONS
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent Form from Refreshing
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    formData.user_id = user.id;
     props.handleSubmit(formData); // Submit to Parents desired function
     props.history.push("/"); //Push back to display page
   };

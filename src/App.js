@@ -4,29 +4,61 @@ import { Route, Link, Switch } from "react-router-dom";
 import Display from "./components/Display";
 import CustomForm from "./components/Form";
 import Show from "./components/Show";
+import NaviLoggedIn from "./components/NaviLoggedIn";
+import Navi from "./components/Navi";
+import Signup from "./components/auth/Signup";
+import Login from "./components/auth/Login";
+import { Button } from "react-bootstrap";
+
+export const GlobalCtx = React.createContext(null);
 
 function App() {
   //variable for url
   const url = "http://localhost:3000";
-  //create the state to hold the entries
+  //create global state that holds auth token
+  const [gState, setgState] = React.useState({
+    url: url,
+    token: false,
+    user: null,
+  });
+
+  //Check if logged in and capture token and user
+  React.useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    console.log(user);
+    console.log(token);
+    if (token) {
+      setgState({ ...gState, token: token, user: user });
+    }
+  }, [gState.token]);
+
+  //create the state to hold the journal entries
   const [entries, setEntries] = React.useState([]);
   //empty
   const emptyEntry = {
     main: "",
     date: null,
+    //user_id: gState.user.id
   };
   //select an entry
   const [selectedEntry, setSelectedEntry] = React.useState({});
 
   //make function that calls API to get the entries
   const getEntries = () => {
-    fetch(url + "/entries/")
+    fetch(url + "/entries/", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${gState.token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => setEntries(data));
   };
 
   //useEffect to do initial fetch of entries
-  React.useEffect(() => getEntries(), []);
+  React.useEffect(() => getEntries(), [gState.token]);
 
   //handleCreate function for creating new entries
   const handleCreate = (newEntry) => {
@@ -34,6 +66,7 @@ function App() {
       method: "post",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `bearer ${gState.token}`,
       },
       body: JSON.stringify(newEntry),
     }).then(() => {
@@ -70,67 +103,84 @@ function App() {
     });
   };
 
+  const loginCheck = () => {
+    if (gState.token) {
+      return <NaviLoggedIn />;
+    } else {
+      return <Navi />;
+    }
+  };
+
   return (
-    <div className="App">
-      <h1>Journal</h1>
-      <main>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(rp) => (
-              <>
-                <Link to="/create">
-                  <button>Add Entry</button>
-                </Link>
-                <Display
+    <GlobalCtx.Provider value={{ gState, setgState }}>
+      <div className="App">
+        {loginCheck()}
+        <h1>Journal</h1>
+        <main>
+          <Switch>
+            <Route path="/signup" exact component={Signup} />
+            <Route path="/login" exact component={Login} />
+            <Route
+              exact
+              path="/"
+              render={(rp) =>
+                gState.token ? (
+                  <>
+                    <Link to="/create">
+                      <Button variant="secondary">Add Entry</Button>
+                    </Link>
+                    <Display
+                      {...rp}
+                      entries={entries}
+                      selectEntry={selectEntry}
+                      deleteEntry={deleteEntry}
+                    />
+                  </>
+                ) : (
+                  <h1>Not Logged In</h1>
+                )
+              }
+            />
+            <Route
+              exact
+              path="/show"
+              render={(rp) => (
+                <Show
                   {...rp}
-                  entries={entries}
+                  entry={selectedEntry}
                   selectEntry={selectEntry}
                   deleteEntry={deleteEntry}
                 />
-              </>
-            )}
-          />
-          <Route
-            exact
-            path="/show"
-            render={(rp) => (
-              <Show
-                {...rp}
-                entry={selectedEntry}
-                selectEntry={selectEntry}
-                deleteEntry={deleteEntry}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/create"
-            render={(rp) => (
-              <CustomForm
-                {...rp}
-                label="create"
-                entry={emptyEntry}
-                handleSubmit={handleCreate}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/edit"
-            render={(rp) => (
-              <Form
-                {...rp}
-                label="update"
-                entry={selectedEntry}
-                handleSubmit={handleUpdate}
-              />
-            )}
-          />
-        </Switch>
-      </main>
-    </div>
+              )}
+            />
+            <Route
+              exact
+              path="/create"
+              render={(rp) => (
+                <CustomForm
+                  {...rp}
+                  label="create"
+                  entry={emptyEntry}
+                  handleSubmit={handleCreate}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/edit"
+              render={(rp) => (
+                <CustomForm
+                  {...rp}
+                  label="update"
+                  entry={selectedEntry}
+                  handleSubmit={handleUpdate}
+                />
+              )}
+            />
+          </Switch>
+        </main>
+      </div>
+    </GlobalCtx.Provider>
   );
 }
 
