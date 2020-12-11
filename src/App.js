@@ -79,6 +79,7 @@ function App() {
       method: "put",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `bearer ${gState.token}`,
       },
       body: JSON.stringify(entry),
     }).then(() => {
@@ -96,6 +97,7 @@ function App() {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `bearer ${gState.token}`,
       },
     }).then(() => {
       // don't need the response from the post but will be using the .then to update the list

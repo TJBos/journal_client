@@ -1,6 +1,6 @@
 import React from "react";
 import { GlobalCtx } from "../../App";
-//import "./Login.css";
+import "./Login.css";
 
 const Login = (props) => {
   const { gState, setgState } = React.useContext(GlobalCtx);

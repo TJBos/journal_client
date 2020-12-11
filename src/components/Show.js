@@ -1,28 +1,34 @@
 import React from "react";
+import { Button, Card } from "react-bootstrap";
 
 const Show = (props) => {
   const { entry } = props;
   return (
-    <div>
-      <h1>{entry.main}</h1>
-      <h3>{entry.date}</h3>
-      <h3>{entry.question1}</h3>
-      <button
-        onClick={() => {
-          props.history.push("/edit");
-        }}
-      >
-        Edit
-      </button>
-      <button
-        onClick={() => {
-          props.deleteEntry(entry);
-          props.history.push("/");
-        }}
-      >
-        Delete
-      </button>
-    </div>
+    <Card className="text-center">
+      <Card.Header>Your thoughts on {entry.date}</Card.Header>
+      <Card.Body>
+        <Card.Text>{entry.main}</Card.Text>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            props.history.push("/edit");
+          }}
+        >
+          Edit
+        </Button>
+        <Button
+          style={{ marginLeft: "10px" }}
+          variant="secondary"
+          onClick={() => {
+            props.deleteEntry(entry);
+            props.history.push("/");
+          }}
+        >
+          Delete
+        </Button>
+      </Card.Body>
+      <Card.Footer className="text-muted"></Card.Footer>
+    </Card>
   );
 };
 

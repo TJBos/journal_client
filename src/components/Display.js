@@ -1,26 +1,31 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 const Display = (props) => {
   const { entries } = props;
+  entries.reverse();
 
   const loaded = () => {
     return (
       <div style={{ textAlign: "center" }}>
         {entries.map((item) => (
-          <article>
-            <h1>{item.date}</h1>
-            <h3>{item.main}</h3>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                props.selectEntry(item);
-                props.history.push("/show");
-              }}
-            >
-              View Entry
-            </Button>
-          </article>
+          <Card className="text-center">
+            <Card.Header></Card.Header>
+            <Card.Body>
+              <Card.Title>{item.date}</Card.Title>
+              <Card.Text>{item.main.slice(0, 25) + "..."}</Card.Text>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  props.selectEntry(item);
+                  props.history.push("/show");
+                }}
+              >
+                View Entry
+              </Button>
+            </Card.Body>
+            <Card.Footer className="text-muted"></Card.Footer>
+          </Card>
         ))}
       </div>
     );
