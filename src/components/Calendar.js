@@ -2,6 +2,7 @@ import React from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const CalendarView = (props) => {
   const [value, onChange] = React.useState(new Date());
@@ -27,7 +28,9 @@ const CalendarView = (props) => {
           Add Entry
         </Button>
       </Link>
-      <h3>Click the day in the calendar to view the entry of that day</h3>
+      <h5 style={{ textAlign: "left", color: "darkgray" }}>
+        Click the day in the calendar to view the entry of that day
+      </h5>
       <Calendar onChange={onChange} onClickDay={onClick} value={value} />
     </div>
   );
