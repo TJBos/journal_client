@@ -8,7 +8,9 @@ const NaviLoggedIn = ({ history }) => {
   return (
     <>
       <Navbar collapseOnSelect expand="lg" variant="dark">
-        <Navbar.Brand href="/">Intrspect</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <ion-icon name="book"></ion-icon>Intrspect
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto"></Nav>
@@ -17,7 +19,10 @@ const NaviLoggedIn = ({ history }) => {
             style={{ marginRight: "75px" }}
           >
             <Nav.Item>
-              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/calendar">Calendar</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/">Timeline</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link

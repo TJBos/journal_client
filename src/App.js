@@ -8,13 +8,15 @@ import NaviLoggedIn from "./components/NaviLoggedIn";
 import Navi from "./components/Navi";
 import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
+import CalendarView from "./components/Calendar";
 import { Button, Card } from "react-bootstrap";
 
 export const GlobalCtx = React.createContext(null);
 
 function App() {
   //variable for url
-  const url = "http://localhost:3000";
+  const url = "https://intrspect.herokuapp.com";
+  //const url = "http://localhost:3000";
   //create global state that holds auth token
   const [gState, setgState] = React.useState({
     url: url,
@@ -23,11 +25,10 @@ function App() {
   });
 
   //Check if logged in and capture token and user
+
   React.useEffect(() => {
     const token = window.localStorage.getItem("token");
     const user = JSON.parse(window.localStorage.getItem("user"));
-    console.log(user);
-    console.log(token);
     if (token) {
       setgState({ ...gState, token: token, user: user });
     }
@@ -166,6 +167,17 @@ function App() {
                   </Card>
                 )
               }
+            />
+            <Route
+              exact
+              path="/calendar"
+              render={(rp) => (
+                <CalendarView
+                  {...rp}
+                  entries={entries}
+                  selectEntry={selectEntry}
+                />
+              )}
             />
             <Route
               exact

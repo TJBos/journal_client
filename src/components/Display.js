@@ -30,7 +30,7 @@ const Display = (props) => {
     );
   };
 
-  const loading = <h1>Loading...</h1>;
+  const loading = <h3>Add a Journal Entry!</h3>;
 
   return entries.length > 0 ? loaded() : loading;
 };

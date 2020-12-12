@@ -8,7 +8,9 @@ const Navi = ({ history }) => {
   return (
     <>
       <Navbar collapseOnSelect expand="lg" variant="dark">
-        <Navbar.Brand href="/">Intrspect</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <ion-icon name="book"></ion-icon>Intrspect
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto"></Nav>

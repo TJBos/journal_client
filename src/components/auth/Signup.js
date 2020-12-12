@@ -62,7 +62,9 @@ const Signup = ({ history }) => {
             onChange={handleChange}
           />
         </div>
-        <Button variant="secondary">Submit</Button>
+        <Button variant="secondary" type="submit">
+          Submit
+        </Button>
       </form>
     </div>
   );
