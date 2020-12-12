@@ -10,10 +10,6 @@
   border-radius: 10px;
 }
 
-.form-inline .form-control {
-  width: 80%;
-}
-
 .form-control {
   border: none;
   border-bottom: solid;

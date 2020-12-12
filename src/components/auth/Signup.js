@@ -1,6 +1,6 @@
 import React from "react";
 import { GlobalCtx } from "../../App";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import "./Login.css";
 
 const Signup = ({ history }) => {
@@ -36,37 +36,35 @@ const Signup = ({ history }) => {
   };
 
   return (
-    <div className="form-container">
-      <form className="form" onSubmit={handleSubmit}>
-        <h1>Sign up</h1>
-        <div className="form-group form-inline">
-          <input
-            id="username"
-            type="text"
-            name="username"
-            className="form-control"
-            placeholder="Enter your username"
-            value={form.username}
-            onChange={handleChange}
-          />
-        </div>
+    <Form className="form" onSubmit={handleSubmit} className="form-container">
+      <h1>Sign up</h1>
+      <Form.Group>
+        <Form.Control
+          id="username"
+          type="text"
+          name="username"
+          className="form-control"
+          placeholder="Enter your username"
+          value={form.username}
+          onChange={handleChange}
+        />
+      </Form.Group>
 
-        <div className="form-group form-inline">
-          <input
-            id="password"
-            type="password"
-            name="password"
-            className="form-control"
-            placeholder="Enter your password"
-            value={form.password}
-            onChange={handleChange}
-          />
-        </div>
-        <Button variant="secondary" type="submit">
-          Submit
-        </Button>
-      </form>
-    </div>
+      <Form.Group>
+        <Form.Control
+          id="password"
+          type="password"
+          name="password"
+          className="form-control"
+          placeholder="Enter your password"
+          value={form.password}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Button variant="secondary" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
 
