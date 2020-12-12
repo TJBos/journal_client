@@ -40,7 +40,7 @@ const Login = (props) => {
   return (
     <div className="form-container">
       <form className="form" onSubmit={handleSubmit}>
-        <h1>Welcome</h1>
+        <h1>Log in</h1>
         <div className="form-group form-inline">
           <input
             id="username"

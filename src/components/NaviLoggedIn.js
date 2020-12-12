@@ -37,7 +37,7 @@ const NaviLoggedIn = ({ history }) => {
             </Nav.Item>
           </Nav>
           <Nav className="justify-content-end">
-            <Navbar.Text>Signed in as: {gState.user.username} </Navbar.Text>
+            <Navbar.Text>User: {gState.user.username} </Navbar.Text>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
